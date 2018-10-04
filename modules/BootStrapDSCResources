@@ -1,5 +1,10 @@
 ##AH:UseTextMode
 module BootStrapDSCResources
 {
-
+	Ensure-Server s16-prod
+	(
+		Exists: false,
+		RoutineExecutionType: E,
+		Raft: Prod
+	);
 }
