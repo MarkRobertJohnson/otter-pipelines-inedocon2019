@@ -46,7 +46,7 @@ function Squash-AllCommits {
   Pop-Location
 }
 
-Reset-Branch -Branch master -Path $RepoPath -Commit ff7863d65edc0c12b0c5ea8db8e875d749896abe
+Reset-Branch -Branch master -Path $RepoPath -Commit e40f9951cea40422b429959da4cbbbebbf28253d
 
 Squash-AllCommits -Branch dev -Path $RepoPath
 Squash-AllCommits -Branch master -Path $RepoPath
