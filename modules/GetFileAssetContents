@@ -1,0 +1,6 @@
+##AH:UseTextMode
+##AH:Description Returns the contents of a file asset
+module GetFileAssetContents<$FileAssetName, out $Contents>
+{
+
+}
