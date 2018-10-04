@@ -1,10 +1,8 @@
 ##AH:UseTextMode
 module BootStrapDSCResources
 {
-	Ensure-Server s16-prod
-	(
-		Exists: false,
-		RoutineExecutionType: E,
-		Raft: Prod
-	);
+    call EnsurePowerShellModules
+    (
+        PowershellModules: %(chocolatey:0.0.50,cChoco:2.3.1.0)
+    );
 }
