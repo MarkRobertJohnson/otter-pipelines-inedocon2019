@@ -1,0 +1,20 @@
+set $ChocolateyPackagesBuildJson = >>
+{
+
+}
+>>;
+
+set $ChocolateyPackagesCommonJson = >>
+{
+    "googlechrome": "69.0.3497.9200",
+    "notepadplusplus.install": "7.5.7",
+    "git.install": "2.18.0",
+    "nodejs.install": "10.11.0",
+    "Sysinternals": "2018.7.19",
+    "awscli": "1.16.24",
+    "kubernetes-cli": "1.12.0",
+    "typescript": "3.1.1",
+	"powershell-core": "6.1.0"
+}
+>>;
+

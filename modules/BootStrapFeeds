@@ -1,0 +1,34 @@
+##AH:UseTextMode
+module BootStrapFeeds
+{
+    PSDsc cChoco::cChocoSource
+    (
+        Otter_ConfigurationKey: Name,
+        Name: Default,
+        Ensure: Present,
+        Source: $ChocolateyFeedUrl
+    );
+
+    PSDsc cChoco::cChocoSource
+    (
+        Otter_ConfigurationKey: Name,
+        Name: chocolatey,
+        Ensure: Absent
+    );
+
+    PSEnsure
+    (
+        Key: Default PowerShell module feed does exist,
+        Value: True,
+        Collect: "!!(Get-PSrepository -Name Default -ErrorAction SilentlyContinue)",
+        Configure: "Register-PSRepository -Name Default -SourceLocation http://s16-dev:8624/nuget/powershell/ -PublishLocation http://s16-dev:8624/nuget/powershell/ -ScriptSourceLocation https://www.powershellgallery.com/api/v2 -ScriptPublishLocation https://www.powershellgallery.com/api/v2 -InstallationPolicy Trusted -Verbose"
+    );
+    
+    PSEnsure
+    (
+        Key: PSGallery does not exist,
+        Value: True,
+        Collect: "!(Get-PSrepository -Name PSGallery -ErrorAction SilentlyContinue)",
+        Configure: Unregister-PSRepository -Name psgallery
+    );
+}
