@@ -62,6 +62,11 @@ function Reset-DemoVms {
 }
 
 function Prepare-OtterServerForDemo {
+  Write-Host -ForegroundColor "Removing role from prod server"
+  Invoke-WebRequest -Uri http://s16-dev:8626/api/infrastructure/servers/update/s16-dev?key=ChocoFest -Method POST -Body '{"roles": ["chocolatey-packages-build"]}'
+  Invoke-WebRequest -Uri http://s16-dev:8626/api/infrastructure/servers/update/s16-prod?key=ChocoFest -Method POST -Body '{"roles": [], "drift": "reportOnly"}'
+  Invoke-WebRequest -Uri http://s16-dev:8626/api/infrastructure/servers/list/s16-prod?key=ChocoFest
+
   Write-Host -ForegroundColor Green "Running server checker ..."
   Invoke-WebRequest -Uri http://s16-dev:8626/0x44/Otter.WebApplication/Inedo.Otter.WebApplication.Pages.Administration.ServiceMonitorPage/RunExecuter?name=Server%20Checker -Method POST -Verbose 
 
