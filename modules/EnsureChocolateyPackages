@@ -9,11 +9,11 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
         with async
         {
             set $packageVersion = %ChocolateyPackages[$packageName];
-    
+
             Log-Information Ensuring Chocolatey package $packageName $packageVersion;
-    
+
             set $startTime = $PSEval("Get-Date");
-    
+
             # PSDsc cChoco::cchocopackageinstaller
             # (
             # Otter_ConfigurationKey: Name,
@@ -22,27 +22,25 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
             # Ensure: Present,
             # AutoUpgrade: True
             # );
-            #Chocolatey::Ensure-Package
-            #(
-            #    Name: $PackageName,
-            #    Version: $PackageVersion,
-            #    Source: $ChocolateyFeedUrl
-            #);
-            
+            # Chocolatey::Ensure-Package
+            # (
+            # Name: $PackageName,
+            # Version: $PackageVersion,
+            # Source: $ChocolateyFeedUrl
+            # );
             PSEnsure
             (
                 Key: Chocolatey package: $PackageName|$PackageVersion,
                 Value: $PackageName|$PackageVersion,
-                Collect: choco list --limit-output --by-id-only --version=$PackageVersion --exact "$PackagName",
-                Configure: choco upgrade $Packagename --version=$PackageVersion -y -s $ChocolateyFeedUrl --no-progress,
+                Collect: c:\ProgramData\Chocolatey\choco.exe list --limit-output --by-id-only --version=$PackageVersion --exact "$PackagName",
+                Configure: c:\ProgramData\Chocolatey\choco.exe upgrade $Packagename --version=$PackageVersion -y -s $ChocolateyFeedUrl --no-progress,
                 UseExitCode: false
             );
-    
+
             call LogElapsedTime
             (
                 FromDateTime: $startTime
             );
         }
-
     }
 }
