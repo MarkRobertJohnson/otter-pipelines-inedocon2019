@@ -13,13 +13,20 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
         
         set $startTime = $PSEval("Get-Date");
 
-        PSDsc cChoco::cchocopackageinstaller
+        #PSDsc cChoco::cchocopackageinstaller
+        #(
+        #    Otter_ConfigurationKey: Name,
+        #    Name: $PackageName,
+        #    Version: $PackageVersion,
+        #    Ensure: Present,
+        #    AutoUpgrade: True
+        #);
+        
+        Chocolatey::Ensure-Package
         (
-            Otter_ConfigurationKey: Name,
             Name: $PackageName,
             Version: $PackageVersion,
-            Ensure: Present,
-            AutoUpgrade: True
+            Source: $ChocolateyFeedUrl
         );
 
         call LogElapsedTime
