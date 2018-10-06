@@ -34,7 +34,7 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
                 Key: Chocolatey package: $PackageName|$PackageVersion,
                 Value: $PackageName|$PackageVersion,
                 Collect: choco list --limit-output --by-id-only --version=$PackageVersion --exact "$PackagName",
-                Configure: choco upgrade $Packagename --version=$PackageVersion -y -s $ChocolateyFeedUrl,
+                Configure: choco upgrade $Packagename --version=$PackageVersion -y -s $ChocolateyFeedUrl --no-progress,
                 UseExitCode: false
             );
     
