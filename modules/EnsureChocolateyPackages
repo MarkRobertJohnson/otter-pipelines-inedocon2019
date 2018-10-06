@@ -1,3 +1,4 @@
+##AH:UseTextMode
 module EnsureChocolateyPackages<%ChocolateyPackages>
 {
     set %ChocolateyPackages = %FromJson($ChocolateyPackagesBuildJson);
@@ -5,30 +6,43 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
     # Loop over Module list to install
     foreach $packageName in @MapKeys(%ChocolateyPackages)
     {
-        set $packageVersion = %ChocolateyPackages[$packageName];
+        with async
+        {
+            set $packageVersion = %ChocolateyPackages[$packageName];
+    
+            Log-Information Ensuring Chocolatey package $packageName $packageVersion;
+    
+            set $startTime = $PSEval("Get-Date");
+    
+            # PSDsc cChoco::cchocopackageinstaller
+            # (
+            # Otter_ConfigurationKey: Name,
+            # Name: $PackageName,
+            # Version: $PackageVersion,
+            # Ensure: Present,
+            # AutoUpgrade: True
+            # );
+            #Chocolatey::Ensure-Package
+            #(
+            #    Name: $PackageName,
+            #    Version: $PackageVersion,
+            #    Source: $ChocolateyFeedUrl
+            #);
+            
+            PSEnsure
+            (
+                Key: Chocolatey package: $PackageName|$PackageVersion,
+                Value: $PackageName|$PackageVersion,
+                Collect: choco list --limit-output --by-id-only --version=$PackageVersion --exact "$PackagName",
+                Configure: choco upgrade $Packagename --version=$PackageVersion -y -s $ChocolateyFeedUrl,
+                UseExitCode: false
+            );
+    
+            call LogElapsedTime
+            (
+                FromDateTime: $startTime
+            );
+        }
 
-        Log-Information Ensuring Chocolatey package $packageName $packageVersion;
-
-        set $startTime = $PSEval("Get-Date");
-
-        # PSDsc cChoco::cchocopackageinstaller
-        # (
-        # Otter_ConfigurationKey: Name,
-        # Name: $PackageName,
-        # Version: $PackageVersion,
-        # Ensure: Present,
-        # AutoUpgrade: True
-        # );
-        Chocolatey::Ensure-Package
-        (
-            Name: $PackageName,
-            Version: $PackageVersion,
-            Source: $ChocolateyFeedUrl
-        );
-
-        call LogElapsedTime
-        (
-            FromDateTime: $startTime
-        );
     }
 }
