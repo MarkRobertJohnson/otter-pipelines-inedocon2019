@@ -6,7 +6,7 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
     # Loop over Module list to install
     foreach $packageName in @MapKeys(%ChocolateyPackages)
     {
-        with async
+        with retry = 5, async
         {
             set $packageVersion = %ChocolateyPackages[$packageName];
 
