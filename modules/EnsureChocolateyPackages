@@ -6,30 +6,26 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
     # Loop over Module list to install
     foreach $packageName in @MapKeys(%ChocolateyPackages)
     {
-        with async
-        {
-            set $packageVersion = %ChocolateyPackages[$packageName];
-    
-            Log-Information Ensuring Chocolatey package $packageName $packageVersion;
-            
-            set $startTime = $PSEval("Get-Date");
-    
-            PSDsc cChoco::cchocopackageinstaller
-            (
-                Otter_ConfigurationKey: Name,
-                Name: $PackageName,
-                Version: $PackageVersion,
-                Ensure: Present,
-                AutoUpgrade: True
-            );
-    
-            call LogElapsedTime
-            (
-                FromDateTime: $startTime
-            );
-        }
+
+        set $packageVersion = %ChocolateyPackages[$packageName];
+
+        Log-Information Ensuring Chocolatey package $packageName $packageVersion;
+        
+        set $startTime = $PSEval("Get-Date");
+
+        PSDsc cChoco::cchocopackageinstaller
+        (
+            Otter_ConfigurationKey: Name,
+            Name: $PackageName,
+            Version: $PackageVersion,
+            Ensure: Present,
+            AutoUpgrade: True
+        );
+
+        call LogElapsedTime
+        (
+            FromDateTime: $startTime
+        );
 
     }
-    
-    await;
 }
