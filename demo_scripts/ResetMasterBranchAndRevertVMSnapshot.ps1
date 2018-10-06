@@ -80,10 +80,11 @@ function Prepare-OtterServerForDemo {
 }
 
 
+#Reset to the version with all of the bootstrap modules, but no chocolatey packages
+Reset-Branch -Branch master -Path $RepoPath -Commit 8859f98cfaab0a2d43ca81869dd552903d1a9c63
 
-
-
-Reset-Branch -Branch master -Path $RepoPath -Commit 9a45b7122b0336bae65788be5c24837f658eb0c3
+#Reset to the version with no modules
+#Reset-Branch -Branch master -Path $RepoPath -Commit 9a45b7122b0336bae65788be5c24837f658eb0c3
 
 Squash-AllCommits -Branch dev -Path $RepoPath
 Squash-AllCommits -Branch master -Path $RepoPath

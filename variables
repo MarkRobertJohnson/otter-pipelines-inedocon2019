@@ -1,6 +1,13 @@
 set $ChocolateyPackagesBuildJson = >>
 {
-
+    "googlechrome-internal": "69.0.3497.9200",
+    "notepadplusplus.install": "7.5.7",
+    "git.install": "2.18.0",
+    "nodejs.install": "10.11.0",
+    "Sysinternals-internal": "2018.8.8",
+    "awscli-internal": "1.16.27",
+    "kubernetes-cli": "1.12.0",
+	"powershell-core-internal": "6.1.0"
 }
 >>;
 
