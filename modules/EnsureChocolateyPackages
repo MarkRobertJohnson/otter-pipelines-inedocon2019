@@ -32,7 +32,7 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
             (
                 Key: Chocolatey package: $PackageName|$PackageVersion,
                 Value: $PackageName|$PackageVersion,
-                Collect: c:\ProgramData\Chocolatey\choco.exe list --limit-output --by-id-only --version=$PackageVersion --exact "$PackagName",
+                Collect: 'c:\ProgramData\Chocolatey\choco.exe list --limit-output --by-id-only --version=$PackageVersion --exact "$PackagName; if(`$LASTEXITCODE) {throw "Error installing $PackageName|$PackageVersion"}',
                 Configure: c:\ProgramData\Chocolatey\choco.exe upgrade $Packagename --version=$PackageVersion -y -s $ChocolateyFeedUrl --no-progress,
                 UseExitCode: false
             );
