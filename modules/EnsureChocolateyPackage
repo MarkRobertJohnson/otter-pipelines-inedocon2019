@@ -1,0 +1,34 @@
+##AH:UseTextMode
+module EnsureChocolateyPackage<$PackageName, $Source, $PackageVersion = "">
+{
+    Log-Information Ensuring Chocolatey package $packageName $packageVersion;
+    set $startTime = $PSEval("Get-Date");
+
+    PSDsc cChoco::cChocoPackageInstaller
+    (
+        Otter_ConfigurationKey: Name,
+        Name: $PackageName,
+        Version: $PackageVersion,
+        Ensure: Present,
+        AutoUpgrade: True,
+        Source: $Source
+    );
+
+    #PSEnsure
+    #(
+    #    Key: Chocolatey package: $PackageName|$PackageVersion,
+    #    Value: $PackageName|$PackageVersion,
+    #    Collect: c:\ProgramData\Chocolatey\choco.exe list --limit-output --by-id-only -lo --version=$PackageVersion --exact "$PackageName",
+    #    Configure: >>
+    #        c:\ProgramData\Chocolatey\choco.exe upgrade $Packagename --version=$PackageVersion -y -s $ChocolateyFeedUrl --no-progress --force
+    #        if($LASTEXITCODE) {throw "Error installing $PackageName|$PackageVersion"}
+    #        >>,
+    #    UseExitCode: false
+    #);
+    #
+    Log-Information "Total time to install Chocolatey package $PackageName|$PackageVersion";
+    call LogElapsedTime
+    (
+        FromDateTime: $startTime
+    );
+}

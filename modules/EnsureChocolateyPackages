@@ -1,0 +1,20 @@
+##AH:UseTextMode
+module EnsureChocolateyPackages<%ChocolateyPackages>
+{
+    set %ChocolateyPackages = %FromJson($ChocolateyPackagesBuildJson);
+
+    # Loop over Module list to install
+    foreach $packageName in @MapKeys(%ChocolateyPackages)
+    {
+        with retry = 5
+        {
+            set $packageVersion = %ChocolateyPackages[$packageName];
+
+            call EnsureChocolateyPackage (
+                PackageName: $PackageName,
+                Source: $ChocolateyFeedUrl,
+                PackageVersion: $PackageVersion
+            );
+        }
+    }
+}

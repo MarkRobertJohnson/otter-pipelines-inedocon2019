@@ -1,0 +1,8 @@
+Log-Debug Hello Chocolatey Fest 2018!;
+
+Ensure-Server s16-prod
+(
+    Exists: true,
+	RoutineExecutionType: E,
+    Raft: Prod
+);
