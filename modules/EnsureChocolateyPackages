@@ -1,7 +1,5 @@
-##AH:UseTextMode
 module EnsureChocolateyPackages<%ChocolateyPackages>
 {
-
     set %ChocolateyPackages = %FromJson($ChocolateyPackagesBuildJson);
 
     # Loop over Module list to install
@@ -11,6 +9,8 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
 
         Log-Information Ensuring Chocolatey package $packageName $packageVersion;
 
+        Execute-PowerShell Write-Host "Start installing Chocolatey package $PackageName at $(Get-Date)";
+
         PSDsc cChoco::cchocopackageinstaller
         (
             Otter_ConfigurationKey: Name,
@@ -19,6 +19,7 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
             Ensure: Present,
             AutoUpgrade: True
         );
-    
+
+        Execute-PowerShell Write-Host "Completed installing Chocolatey package $PackageName at $(Get-Date)";
     }
 }
