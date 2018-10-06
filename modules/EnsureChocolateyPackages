@@ -1,3 +1,4 @@
+##AH:UseTextMode
 module EnsureChocolateyPackages<%ChocolateyPackages>
 {
     set %ChocolateyPackages = %FromJson($ChocolateyPackagesBuildJson);
@@ -8,8 +9,8 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
         set $packageVersion = %ChocolateyPackages[$packageName];
 
         Log-Information Ensuring Chocolatey package $packageName $packageVersion;
-
-        Execute-PowerShell Write-Host "Start installing Chocolatey package $PackageName at $(Get-Date)";
+        
+        set $startTime = $PSEval("Get-Date");
 
         PSDsc cChoco::cchocopackageinstaller
         (
@@ -20,6 +21,10 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
             AutoUpgrade: True
         );
 
-        Execute-PowerShell Write-Host "Completed installing Chocolatey package $PackageName at $(Get-Date)";
+        call LogElapsedTime
+        (
+            FromDateTime: $startTime
+        );
+
     }
 }
