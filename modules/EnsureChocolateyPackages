@@ -1,4 +1,3 @@
-##AH:UseTextMode
 module EnsureChocolateyPackages<%ChocolateyPackages>
 {
     set %ChocolateyPackages = %FromJson($ChocolateyPackagesBuildJson);
@@ -6,22 +5,20 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
     # Loop over Module list to install
     foreach $packageName in @MapKeys(%ChocolateyPackages)
     {
-
         set $packageVersion = %ChocolateyPackages[$packageName];
 
         Log-Information Ensuring Chocolatey package $packageName $packageVersion;
-        
+
         set $startTime = $PSEval("Get-Date");
 
-        #PSDsc cChoco::cchocopackageinstaller
-        #(
-        #    Otter_ConfigurationKey: Name,
-        #    Name: $PackageName,
-        #    Version: $PackageVersion,
-        #    Ensure: Present,
-        #    AutoUpgrade: True
-        #);
-        
+        # PSDsc cChoco::cchocopackageinstaller
+        # (
+        # Otter_ConfigurationKey: Name,
+        # Name: $PackageName,
+        # Version: $PackageVersion,
+        # Ensure: Present,
+        # AutoUpgrade: True
+        # );
         Chocolatey::Ensure-Package
         (
             Name: $PackageName,
@@ -33,6 +30,5 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
         (
             FromDateTime: $startTime
         );
-
     }
 }
