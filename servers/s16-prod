@@ -1,4 +1,4 @@
-Log-Debug Hello Choco Fest 2018!;
+Log-Debug Hello Chocolatey Fest 2018!;
 
 Ensure-Server s16-prod
 (
