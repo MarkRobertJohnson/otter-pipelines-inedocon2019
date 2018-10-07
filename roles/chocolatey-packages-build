@@ -1,0 +1,7 @@
+##AH:UseTextMode
+
+call EnsureChocolateyPackages
+(
+   # ChocolateyPackages: %FromJson($ChocolateyPackagesBuildJson)
+   ChocolateyPackages: %FromJson("{foo:1}")
+);
