@@ -4,7 +4,6 @@
   [string]$SnapShotName = 'Inedo Agent Installed'
 )
 
-
 <#
 If you accidentally blow away a branch, you can use 
 
@@ -15,7 +14,6 @@ to see the previous commit, and then
 git reset --hard <COMMIT> to recover
 
 #>
-
 function Reset-Branch {
   param([string]$Branch,
     [string]$Path,
@@ -76,6 +74,8 @@ function Prepare-OtterServerForDemo {
   Write-Host -ForegroundColor Green "Removing role from prod server"
   Invoke-WebRequest -Uri http://s16-dev:8626/api/infrastructure/servers/update/s16-dev?key=ChocoFest -Method POST -Body '{"roles": ["chocolatey-packages-build"], "raft": "Dev"}'
   Invoke-WebRequest -Uri http://s16-dev:8626/api/infrastructure/servers/update/s16-prod?key=ChocoFest -Method POST -Body '{"roles": [], "drift": "automaticallyRemediate","raftId": "3", "raft": "Prod"}'
+  Invoke-WebRequest -Uri http://s16-dev:8626/api/infrastructure/servers/update/s16-test?key=ChocoFest -Method POST -Body '{"roles": ["chocolatey-packages-build"], "drift": "reportOnly","raftId": "4", "raft": "Test"}'
+
   Invoke-RestMethod -Uri http://s16-dev:8626/api/infrastructure/servers/list?key=ChocoFest
 
 
@@ -91,12 +91,13 @@ function Prepare-OtterServerForDemo {
 }
 
 
-
-#Reset to the version with all of the bootstrap modules, but no chocolatey packages
+#Reset master to the version with all of the bootstrap modules, but no chocolatey packages
 Reset-Branch -Branch master -Path $RepoPath -Commit 8859f98cfaab0a2d43ca81869dd552903d1a9c63
 
+#Reset dev to the version that does not have powershell-core-internal
+Reset-Branch -Branch master -Path $RepoPath -Commit 8859f98cfaab0a2d43ca81869dd552903d1a9c63
 <#
-#Pre-demo 2 state: f75c11a8263c37bc470b7d94d6b62adef40b37a9
+#Pre-demo 2 state: 2a300ac918f7bfd55d8c7d793d92932f36bb3f32
 
 #Post-Demo 2 state: 
 
@@ -106,7 +107,6 @@ Reset-Branch -Branch master -Path $RepoPath -Commit 8859f98cfaab0a2d43ca81869dd5
 #Reset to the version with no modules
 #Reset-Branch -Branch master -Path $RepoPath -Commit 9a45b7122b0336bae65788be5c24837f658eb0c3
 
-
 Squash-AllCommits -Branch dev -Path $RepoPath
 Squash-AllCommits -Branch master -Path $RepoPath
 
@@ -114,6 +114,7 @@ Reset-DemoVms -VmxPath 'C:\Users\Mark Johnson\OneDrive\Documents2\Virtual Machin
 #Reset-DemoVms -VmxPath 'C:\Users\Mark Johnson\OneDrive\Documents2\Virtual Machines\s16-prod\s16-prod.vmx' -SnapShotName 'Initial Bootstrapping Applied'
 
 #Reset-DemoVms -VmxPath 'C:\vms\s16-dev\s16-dev.vmx' -SnapShotName 'Pre-demo 2 v2'
+
 
 
 Prepare-OtterServerForDemo
