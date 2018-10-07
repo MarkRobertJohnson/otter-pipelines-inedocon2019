@@ -1,6 +1,7 @@
 ##AH:UseTextMode
 module EnsureChocolateyPackages<%ChocolateyPackages>
 {
+    # "powershell-core-internal": "6.1.0"
     
     set $packagesJson = >>
     {
@@ -11,6 +12,7 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
         "kubernetes-cli": "1.12.0",
         "bitcoin.portable": "0.17.0",
         "powershell-core-internal": "6.1.0"
+        
     }
 >>;
      set %ChocolateyPackages = %FromJson($packagesJson);
@@ -21,25 +23,11 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
     {
         set $packageVersion = %ChocolateyPackages[$packageName];
 
-        #call EnsureChocolateyPackage (
-        #    PackageName: $PackageName,
-        #    Source: $ChocolateyFeedUrl,
-        #    PackageVersion: $PackageVersion
-        #);
-        
+     
           Log-Information Ensuring Chocolatey package $packageName $packageVersion;
         set $startTime = $PSEval("Get-Date");
     
-       #PSDsc cChoco::cChocoPackageInstaller
-       #(
-       #    Otter_ConfigurationKey: Name,
-       #    Name: $PackageName,
-       #    Version: $PackageVersion,
-       #    Ensure: Present,
-       #    AutoUpgrade: True,
-       #    Source: $ChocolateyFeedUrl
-       #);
-    #
+
        PSEnsure
        (
            Key: Chocolatey package: $PackageName|$PackageVersion,
