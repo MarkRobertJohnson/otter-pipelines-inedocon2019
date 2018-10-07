@@ -1,7 +1,13 @@
 ##AH:UseTextMode
 module EnsureChocolateyPackages<%ChocolateyPackages>
 {
-    # "powershell-core-internal": "6.1.0"
+    Log-Warning >>
+    
+    We need to get PowerShell Core into production ASAP!!!
+    
+    "powershell-core-internal": "6.1.0"
+    
+    >>;
     
     set $packagesJson = >>
     {
@@ -10,9 +16,8 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
         "git.install": "2.18.0",
         "nodejs.install": "10.11.0",
         "kubernetes-cli": "1.12.0",
-        "bitcoin.portable": "0.17.0",
-        "powershell-core-internal": "6.1.0"
-        
+        "bitcoin.portable": "0.17.0"
+  
     }
 >>;
      set %ChocolateyPackages = %FromJson($packagesJson);
