@@ -109,7 +109,7 @@ Squash-AllCommits -Branch master -Path $RepoPath
 Reset-DemoVms -VmxPath 'C:\Users\Mark Johnson\OneDrive\Documents2\Virtual Machines\s16-prod\s16-prod.vmx' -SnapShotName 'Inedo Agent Installed'
 #Reset-DemoVms -VmxPath 'C:\Users\Mark Johnson\OneDrive\Documents2\Virtual Machines\s16-prod\s16-prod.vmx' -SnapShotName 'Initial Bootstrapping Applied'
 
-Reset-DemoVms -VmxPath 'C:\vms\s16-dev\s16-dev.vmx' -SnapShotName 'Pre-demo 2'
+#Reset-DemoVms -VmxPath 'C:\vms\s16-dev\s16-dev.vmx' -SnapShotName 'Pre-demo 2 v2'
 
 
 
