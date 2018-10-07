@@ -4,7 +4,7 @@ module EnsureChocolateyPackage<$PackageName, $Source, $PackageVersion = "">
     Log-Information Ensuring Chocolatey package $packageName $packageVersion;
     set $startTime = $PSEval("Get-Date");
 
-    PSDsc cChoco::cchocopackageinstaller
+    PSDsc cChoco::cChocoPackageInstaller
     (
         Otter_ConfigurationKey: Name,
         Name: $PackageName,

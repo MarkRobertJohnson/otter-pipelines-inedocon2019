@@ -1,7 +1,29 @@
 ##AH:UseTextMode
 module EnsureChocolateyPackages<%ChocolateyPackages>
 {
-    set %ChocolateyPackages = %FromJson($ChocolateyPackagesBuildJson);
+    
+    Log-Warning >>
+    We need Powershell Core in production ASAP!!!
+    
+    Please install this Chocolatey pacakge in dev then promote it to production:
+    
+    "powershell-core-internal": "6.1.0"
+    
+    >>;
+    
+    
+    set %ChocolateyPackages = %FromJson(>>
+    {
+        "vim-internal": "8.0.604",
+        "notepadplusplus.install": "7.5.7",
+        "git.install": "2.18.0",
+        "nodejs.install": "10.11.0",
+        "kubernetes-cli": "1.12.0",
+        "bitcoin.portable": "0.17.0"
+    }
+    >>);
+
+    
 
     # Loop over Module list to install
     foreach $packageName in @MapKeys(%ChocolateyPackages)
@@ -16,9 +38,5 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
                 PackageVersion: $PackageVersion
             );
         }
-    }
-}
-        );
-    
     }
 }
