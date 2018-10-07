@@ -95,7 +95,7 @@ function Prepare-OtterServerForDemo {
 Reset-Branch -Branch master -Path $RepoPath -Commit 8859f98cfaab0a2d43ca81869dd552903d1a9c63
 
 #Reset dev to the version that does not have powershell-core-internal
-Reset-Branch -Branch master -Path $RepoPath -Commit 8859f98cfaab0a2d43ca81869dd552903d1a9c63
+Reset-Branch -Branch master -Path $RepoPath -Commit 0769a08c2ee989e0287a5080a2fa126af064acbe
 <#
 #Pre-demo 2 state: 2a300ac918f7bfd55d8c7d793d92932f36bb3f32
 
