@@ -4,6 +4,7 @@
   [string]$SnapShotName = 'Inedo Agent Installed'
 )
 
+
 <#
 If you accidentally blow away a branch, you can use 
 
@@ -14,6 +15,7 @@ to see the previous commit, and then
 git reset --hard <COMMIT> to recover
 
 #>
+
 function Reset-Branch {
   param([string]$Branch,
     [string]$Path,
@@ -89,6 +91,7 @@ function Prepare-OtterServerForDemo {
 }
 
 
+
 #Reset to the version with all of the bootstrap modules, but no chocolatey packages
 Reset-Branch -Branch master -Path $RepoPath -Commit 8859f98cfaab0a2d43ca81869dd552903d1a9c63
 
@@ -103,6 +106,7 @@ Reset-Branch -Branch master -Path $RepoPath -Commit 8859f98cfaab0a2d43ca81869dd5
 #Reset to the version with no modules
 #Reset-Branch -Branch master -Path $RepoPath -Commit 9a45b7122b0336bae65788be5c24837f658eb0c3
 
+
 Squash-AllCommits -Branch dev -Path $RepoPath
 Squash-AllCommits -Branch master -Path $RepoPath
 
@@ -110,7 +114,6 @@ Reset-DemoVms -VmxPath 'C:\Users\Mark Johnson\OneDrive\Documents2\Virtual Machin
 #Reset-DemoVms -VmxPath 'C:\Users\Mark Johnson\OneDrive\Documents2\Virtual Machines\s16-prod\s16-prod.vmx' -SnapShotName 'Initial Bootstrapping Applied'
 
 #Reset-DemoVms -VmxPath 'C:\vms\s16-dev\s16-dev.vmx' -SnapShotName 'Pre-demo 2 v2'
-
 
 
 Prepare-OtterServerForDemo

@@ -16,7 +16,6 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
     }
 >>;
      set %ChocolateyPackages = %FromJson($packagesJson);
-    
 
     # Loop over Module list to install
     foreach $packageName in @MapKeys(%ChocolateyPackages)
@@ -24,7 +23,7 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
         set $packageVersion = %ChocolateyPackages[$packageName];
 
      
-          Log-Information Ensuring Chocolatey package $packageName $packageVersion;
+        Log-Information Ensuring Chocolatey package $packageName $packageVersion;
         set $startTime = $PSEval("Get-Date");
     
 
@@ -48,3 +47,4 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
         
     }
 }
+
