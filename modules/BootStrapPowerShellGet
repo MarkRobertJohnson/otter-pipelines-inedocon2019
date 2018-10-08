@@ -1,0 +1,11 @@
+##AH:UseTextMode
+module BootStrapPowerShellGet
+{
+    PSEnsure
+    (
+        Key: Nuget Package Provider Installed,
+        Value: True,
+        Collect: "!!(get-packageprovider -name Nuget  -erroraction silentlycontinue)",
+        Configure: " get-packageprovider -name Nuget  -Force -ForceBootstrap -Verbose"
+    );
+}

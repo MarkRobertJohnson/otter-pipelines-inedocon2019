@@ -1,0 +1,13 @@
+##AH:UseTextMode
+##AH:Description Returns the contents of a file asset
+module GetFileAssetContents<$FileAssetName, out $Contents>
+{
+    Log-Warning Getting file asset contents from $FileAssetName;
+
+    with executionPolicy=always {
+        Get-Asset $FileAssetName;
+    }
+        
+    set $Contents = $FileContents($FileAssetName);
+    
+}
