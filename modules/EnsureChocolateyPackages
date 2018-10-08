@@ -1,0 +1,49 @@
+##AH:UseTextMode
+module EnsureChocolateyPackages<%ChocolateyPackages>
+{
+    Log-Warning >>
+    
+    We need to get PowerShell Core into production ASAP!!!
+    
+    "powershell-core-internal": "6.1.0"
+    
+    >>;
+    
+    set $packagesJson = >>
+    {
+	
+    }
+>>;
+     set %ChocolateyPackages = %FromJson($packagesJson);
+
+    # Loop over Module list to install
+    foreach $packageName in @MapKeys(%ChocolateyPackages)
+    {
+        set $packageVersion = %ChocolateyPackages[$packageName];
+
+     
+        Log-Information Ensuring Chocolatey package $packageName $packageVersion;
+        set $startTime = $PSEval("Get-Date");
+    
+
+       PSEnsure
+       (
+           Key: Chocolatey package: $PackageName|$PackageVersion,
+           Value: $PackageName|$PackageVersion,
+           Collect: c:\ProgramData\Chocolatey\choco.exe list --limit-output --by-id-only -lo --version=$PackageVersion --exact "$PackageName",
+           Configure: >>
+               c:\ProgramData\Chocolatey\choco.exe install $Packagename --version=$PackageVersion -y -s $ChocolateyFeedUrl --no-progress 
+               #if($LASTEXITCODE) {throw "Error installing $PackageName|$PackageVersion"}
+               >>,
+           UseExitCode: false
+       );
+       
+        Log-Information "Total time to install Chocolatey package $PackageName|$PackageVersion";
+        call LogElapsedTime
+        (
+            FromDateTime: $startTime
+        );
+        
+    }
+}
+

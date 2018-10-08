@@ -1,0 +1,9 @@
+##AH:UseTextMode
+module LogElapsedTime<$FromDateTime>
+{
+    set $elapsedScript = ([datetime]::Now - [datetime]::parse('$FromDateTime')).ToString();
+
+    set $elapsed = $PSEval($elapsedScript);
+
+    Log-Information $elapsed;
+}
