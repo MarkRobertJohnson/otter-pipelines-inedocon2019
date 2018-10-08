@@ -107,8 +107,8 @@ Reset-Branch -Branch master -Path $RepoPath -Commit d7a5cd7873303f38be001d539809
 #Reset to the version with no modules
 #Reset-Branch -Branch master -Path $RepoPath -Commit 9a45b7122b0336bae65788be5c24837f658eb0c3
 
-Squash-AllCommits -Branch dev -Path $RepoPath
-Squash-AllCommits -Branch master -Path $RepoPath
+#Squash-AllCommits -Branch dev -Path $RepoPath
+#Squash-AllCommits -Branch master -Path $RepoPath
 
 Reset-DemoVms -VmxPath 'C:\Users\Mark Johnson\OneDrive\Documents2\Virtual Machines\s16-prod\s16-prod.vmx' -SnapShotName 'Inedo Agent Installed'
 #Reset-DemoVms -VmxPath 'C:\Users\Mark Johnson\OneDrive\Documents2\Virtual Machines\s16-prod\s16-prod.vmx' -SnapShotName 'Initial Bootstrapping Applied'
