@@ -92,7 +92,7 @@ function Prepare-OtterServerForDemo {
 
 
 #Reset master to the version with all of the bootstrap modules, but no chocolatey packages OLD: e9a66db194bcbb2bd16faa983a90922070645109 
-Reset-Branch -Branch master -Path $RepoPath -Commit f9c494bdcfd726296d40f36341e6aa5267a36d4a  
+Reset-Branch -Branch master -Path $RepoPath -Commit d7a5cd7873303f38be001d539809d4ee54e2d254  
 
 #Reset dev to the version that does not have powershell-core-internal
 #Reset-Branch -Branch dev -Path $RepoPath -Commit 34e737ea89301ec50087c54c46bd7e497370e1f2
