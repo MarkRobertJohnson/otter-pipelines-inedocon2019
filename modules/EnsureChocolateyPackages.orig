@@ -1,0 +1,59 @@
+##AH:UseTextMode
+module EnsureChocolateyPackages<%ChocolateyPackages>
+{
+    Log-Warning >>
+    
+    We need to get PowerShell Core into production ASAP!!!
+    
+    "powershell-core-internal": "6.1.0"
+    
+    >>;
+    
+    set $packagesJson = >>
+    {
+<<<<<<< HEAD
+        "vim-internal": "8.0.604",
+        "notepadplusplus.install": "7.5.7",
+        "git.install": "2.18.0",
+        "nodejs.install": "10.11.0",
+        "kubernetes-cli": "1.12.0",
+        "bitcoin.portable": "0.17.0",
+        "powershell-core-internal": "6.1.0"
+=======
+	
+>>>>>>> Squashed all commits on branch master
+    }
+>>;
+     set %ChocolateyPackages = %FromJson($packagesJson);
+
+    # Loop over Module list to install
+    foreach $packageName in @MapKeys(%ChocolateyPackages)
+    {
+        set $packageVersion = %ChocolateyPackages[$packageName];
+
+     
+        Log-Information Ensuring Chocolatey package $packageName $packageVersion;
+        set $startTime = $PSEval("Get-Date");
+    
+
+       PSEnsure
+       (
+           Key: Chocolatey package: $PackageName|$PackageVersion,
+           Value: $PackageName|$PackageVersion,
+           Collect: c:\ProgramData\Chocolatey\choco.exe list --limit-output --by-id-only -lo --version=$PackageVersion --exact "$PackageName",
+           Configure: >>
+               c:\ProgramData\Chocolatey\choco.exe install $Packagename --version=$PackageVersion -y -s $ChocolateyFeedUrl --no-progress 
+               #if($LASTEXITCODE) {throw "Error installing $PackageName|$PackageVersion"}
+               >>,
+           UseExitCode: false
+       );
+       
+        Log-Information "Total time to install Chocolatey package $PackageName|$PackageVersion";
+        call LogElapsedTime
+        (
+            FromDateTime: $startTime
+        );
+        
+    }
+}
+
