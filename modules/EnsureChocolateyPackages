@@ -38,7 +38,7 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
           Version: $PackageVersion,
           Ensure: Present,
           AutoUpgrade: True,
-          Source: $Source
+          Source: $ChocolateyFeedUrl
       );
       
      # PSEnsure
