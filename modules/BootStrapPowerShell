@@ -22,6 +22,6 @@ module BootStrapPowerShell
         Value: $PowerShell_MaxEnvelopeSizekb,
         Collect: "(Get-Item WSMan:\localhost\MaxEnvelopeSizekb).Value",
         ConfigureScript: SetMaxEnvelopeSizeKb,
-        ConfigureScriptParams: %(SizeKb: 1000)
+        ConfigureScriptParams: %(SizeKb: $PowerShell_MaxEnvelopeSizekb)
     );
 }
