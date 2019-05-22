@@ -21,7 +21,7 @@ module BootStrapFeeds
         Key: Default PowerShell module feed is $PowerShellModuleFeedUrl,
         Value: http://s16-dev:8624/nuget/powershell/,
         Collect: "(Get-PSrepository -Name Default -ErrorAction SilentlyContinue).SourceLocation",
-        Configure: Register-PSRepository -Name Default -SourceLocation $PowerShellModuleFeedUrl -PublishLocation $PowerShellModuleFeedUrl -ScriptSourceLocation https://www.powershellgallery.com/api/v2 -ScriptPublishLocation https://www.powershellgallery.com/api/v2 -InstallationPolicy Trusted -Verbose
+        Configure: Register-PSRepository -Name Default -SourceLocation $PowerShellModuleFeedUrl -PublishLocation $PowerShellModuleFeedUrl -ScriptSourceLocation https://www.powershellgallery.com/api/v2/items/psscript -ScriptPublishLocation https://www.powershellgallery.com/api/v2 -InstallationPolicy Trusted -Verbose
     );
 
     PSEnsure
