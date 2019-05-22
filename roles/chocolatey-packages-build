@@ -20,7 +20,8 @@ We need to get PowerShell Core into production ASAP!!! Please update the chocola
 set $ChocolateyPackagesBuildJson = >>
 {
     "vim-internal": "8.0.604",
-    "notepadplusplus.install": "7.5.7"
+    "notepadplusplus.install": "7.5.7",
+    "git.install": "2.18.0"
 }
 >>;
 
