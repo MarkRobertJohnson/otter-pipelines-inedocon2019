@@ -1,5 +1,14 @@
 ##AH:UseTextMode
 
+
+Log-Warning >>
+
+We need to get PowerShell Core into production ASAP!!! Please update the chocolatey-packages-build role!
+
+"powershell-core-internal": "6.1.0"
+
+>>;
+
 #    "notepadplusplus.install": "7.5.7",
 #    "git.install": "2.18.0",
 #    "nodejs.install": "10.11.0",
