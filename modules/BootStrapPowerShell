@@ -16,11 +16,14 @@ module BootStrapPowerShell
         );
     }
     
+    Log-Information $EnvironmentName;
+    
     PSEnsure
     (
         Key: PowerShell MaxEnvelopeSizekb,
         Value: $PowerShell_MaxEnvelopeSizekb,
         Collect: "(Get-Item WSMan:\localhost\MaxEnvelopeSizekb).Value",
-        Configure: "Set-Item WSMan:\localhost\MaxEnvelopeSizekb -Value $PowerShell_MaxEnvelopeSizekb"
+        ConfigureScript: ${EnvironmentName}Raft::SetMaxEnvelopeSizeKb,
+        ConfigureScriptParams: %(SizeKb: $PowerShell_MaxEnvelopeSizekb)
     );
 }

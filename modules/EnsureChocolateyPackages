@@ -16,8 +16,8 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
         "git.install": "2.18.0",
         "nodejs.install": "10.11.0",
         "kubernetes-cli": "1.12.0",
-        "bitcoin.portable": "0.17.0"
-  
+        "bitcoin.portable": "0.17.0",
+        "powershell-core-internal": "6.1.0"
     }
 >>;
      set %ChocolateyPackages = %FromJson($packagesJson);
@@ -31,18 +31,27 @@ module EnsureChocolateyPackages<%ChocolateyPackages>
         Log-Information Ensuring Chocolatey package $packageName $packageVersion;
         set $startTime = $PSEval("Get-Date");
     
-
-       PSEnsure
-       (
-           Key: Chocolatey package: $PackageName|$PackageVersion,
-           Value: $PackageName|$PackageVersion,
-           Collect: c:\ProgramData\Chocolatey\choco.exe list --limit-output --by-id-only -lo --version=$PackageVersion --exact "$PackageName",
-           Configure: >>
-               c:\ProgramData\Chocolatey\choco.exe install $Packagename --version=$PackageVersion -y -s $ChocolateyFeedUrl --no-progress 
-               #if($LASTEXITCODE) {throw "Error installing $PackageName|$PackageVersion"}
-               >>,
-           UseExitCode: false
-       );
+      PSDsc cChoco::cChocoPackageInstaller
+      (
+          Otter_ConfigurationKey: Name,
+          Name: $PackageName,
+          Version: $PackageVersion,
+          Ensure: Present,
+          AutoUpgrade: True,
+          Source: $ChocolateyFeedUrl
+      );
+      
+     # PSEnsure
+     # (
+     #     Key: Chocolatey package: $PackageName|$PackageVersion,
+     #     Value: $PackageName|$PackageVersion,
+     #     Collect: c:\ProgramData\Chocolatey\choco.exe list --limit-output --by-id-only -lo --version=$PackageVersion --exact "$PackageName",
+     #     Configure: >>
+     #         c:\ProgramData\Chocolatey\choco.exe install $Packagename --version=$PackageVersion -y -s $ChocolateyFeedUrl --no-progress 
+     #         #if($LASTEXITCODE) {throw "Error installing $PackageName|$PackageVersion"}
+     #         >>,
+     #     UseExitCode: false
+     # );
        
         Log-Information "Total time to install Chocolatey package $PackageName|$PackageVersion";
         call LogElapsedTime

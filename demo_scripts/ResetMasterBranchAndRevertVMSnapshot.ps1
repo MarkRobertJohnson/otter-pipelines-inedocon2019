@@ -1,4 +1,4 @@
-﻿param(
+param(
   [string]$RepoPath = 'C:\dev\ws\chocofest',
   [string]$VmxPath = 'C:\Users\Mark Johnson\OneDrive\Documents2\Virtual Machines\s16-prod\s16-prod.vmx', 
   [string]$SnapShotName = 'Inedo Agent Installed'
@@ -88,14 +88,15 @@ function Prepare-OtterServerForDemo {
 
   Write-Host -ForegroundColor Green "Running RoutineConfigurationRunner ..."
   Invoke-WebRequest -Uri http://s16-dev:8626/0x44/Otter.WebApplication/Inedo.Otter.WebApplication.Pages.Administration.ServiceMonitorPage/RunExecuter?name=RoutineConfigurationRunner -Method POST -Verbose
-}
+} 
 
 
-#Reset master to the version with all of the bootstrap modules, but no chocolatey packages
-Reset-Branch -Branch master -Path $RepoPath -Commit 8859f98cfaab0a2d43ca81869dd552903d1a9c63
+#Reset master to the version with all of the bootstrap modules, but no chocolatey packages OLD: e9a66db194bcbb2bd16faa983a90922070645109 
+Reset-Branch -Branch master -Path $RepoPath -Commit d7a5cd7873303f38be001d539809d4ee54e2d254  
 
 #Reset dev to the version that does not have powershell-core-internal
-Reset-Branch -Branch master -Path $RepoPath -Commit 0769a08c2ee989e0287a5080a2fa126af064acbe
+Reset-Branch -Branch dev -Path $RepoPath -Commit 1dbfdcd6a71848a6000f3c7347ba5de5fa4d2c6a
+
 <#
 #Pre-demo 2 state: 2a300ac918f7bfd55d8c7d793d92932f36bb3f32
 
@@ -107,8 +108,10 @@ Reset-Branch -Branch master -Path $RepoPath -Commit 0769a08c2ee989e0287a5080a2fa
 #Reset to the version with no modules
 #Reset-Branch -Branch master -Path $RepoPath -Commit 9a45b7122b0336bae65788be5c24837f658eb0c3
 
+
 Squash-AllCommits -Branch dev -Path $RepoPath
 Squash-AllCommits -Branch master -Path $RepoPath
+
 
 Reset-DemoVms -VmxPath 'C:\Users\Mark Johnson\OneDrive\Documents2\Virtual Machines\s16-prod\s16-prod.vmx' -SnapShotName 'Inedo Agent Installed'
 #Reset-DemoVms -VmxPath 'C:\Users\Mark Johnson\OneDrive\Documents2\Virtual Machines\s16-prod\s16-prod.vmx' -SnapShotName 'Initial Bootstrapping Applied'
