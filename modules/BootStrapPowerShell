@@ -23,7 +23,7 @@ module BootStrapPowerShell
         Key: PowerShell MaxEnvelopeSizekb,
         Value: $PowerShell_MaxEnvelopeSizekb,
         Collect: "(Get-Item WSMan:\localhost\MaxEnvelopeSizekb).Value",
-        ConfigureScript: ${EnvironmentName}Raft::SetMaxEnvelopeSizeKb,
+        ConfigureScript: SetMaxEnvelopeSizeKb,
         ConfigureScriptParams: %(SizeKb: $PowerShell_MaxEnvelopeSizekb)
     );
 }
