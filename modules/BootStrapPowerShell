@@ -15,9 +15,9 @@ module BootStrapPowerShell
             ConfigureScriptParams: %(ModuleName: $ModuleName)
         );
     }
-
+    
     Log-Information $EnvironmentName;
-
+    
     PSEnsure
     (
         Key: PowerShell MaxEnvelopeSizekb,

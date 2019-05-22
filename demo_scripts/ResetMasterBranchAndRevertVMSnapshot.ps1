@@ -1,4 +1,4 @@
-﻿param(
+param(
   [string]$RepoPath = 'C:\dev\ws\chocofest',
   [string]$VmxPath = 'C:\Users\Mark Johnson\OneDrive\Documents2\Virtual Machines\s16-prod\s16-prod.vmx', 
   [string]$SnapShotName = 'Inedo Agent Installed'
@@ -96,6 +96,7 @@ Reset-Branch -Branch master -Path $RepoPath -Commit d7a5cd7873303f38be001d539809
 
 #Reset dev to the version that does not have powershell-core-internal
 Reset-Branch -Branch dev -Path $RepoPath -Commit 1dbfdcd6a71848a6000f3c7347ba5de5fa4d2c6a
+
 <#
 #Pre-demo 2 state: 2a300ac918f7bfd55d8c7d793d92932f36bb3f32
 
@@ -107,8 +108,10 @@ Reset-Branch -Branch dev -Path $RepoPath -Commit 1dbfdcd6a71848a6000f3c7347ba5de
 #Reset to the version with no modules
 #Reset-Branch -Branch master -Path $RepoPath -Commit 9a45b7122b0336bae65788be5c24837f658eb0c3
 
-#Squash-AllCommits -Branch dev -Path $RepoPath
-#Squash-AllCommits -Branch master -Path $RepoPath
+
+Squash-AllCommits -Branch dev -Path $RepoPath
+Squash-AllCommits -Branch master -Path $RepoPath
+
 
 Reset-DemoVms -VmxPath 'C:\Users\Mark Johnson\OneDrive\Documents2\Virtual Machines\s16-prod\s16-prod.vmx' -SnapShotName 'Inedo Agent Installed'
 #Reset-DemoVms -VmxPath 'C:\Users\Mark Johnson\OneDrive\Documents2\Virtual Machines\s16-prod\s16-prod.vmx' -SnapShotName 'Initial Bootstrapping Applied'
