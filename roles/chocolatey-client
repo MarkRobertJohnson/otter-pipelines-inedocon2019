@@ -1,1 +1,4 @@
+##AH:UseTextMode
+##UPDATE
+
 call BootStrapChocolatey();
